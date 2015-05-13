@@ -111,17 +111,17 @@ in versioned backups scenario u can have as much older snapshots as u like so it
 
 **example for mirroring**:
 ```
-php mediasync.php --conf=setup1.json
+php mediasync.php --conf=setup1.js
 ```
 
 **for cron** u should always add "**--mai**l" option and set "**mailto**" option in conf so errors will be mailed to u
 ```
-php mediasync.php --conf=setup1.json --mail >/dev/null 2>&1 &
+php mediasync.php --conf=setup1.js --mail >/dev/null 2>&1 &
 ```
 
 **example for restore from the most recent backup:**
 ```
-php mediasync.php --conf=setup1.json --restore=0
+php mediasync.php --conf=setup1.js --restore=0
 ```
 
 if u want to see what will it do without actual changes on disk add **"--dry-run"** option
