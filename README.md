@@ -31,7 +31,7 @@ options:
 config file is of json format but additionally u can put ```^\s*//.+``` comments there.
 
 sample config file with options explained:
-```
+```js
 //this is not valid json.
 //but ^\s*//.+ comments are strippped before decoding so feel free to comment it out as you like
 {
