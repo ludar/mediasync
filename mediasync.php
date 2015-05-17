@@ -153,6 +153,10 @@ EOL;
 		$d = "{$host}:{$d}";
 	}
 
+	out('source directory: '.$s);
+	out('target directory: '.$d);
+	out('--------- rsync output below -------------');
+
 //	here path to rsync is a local one
 	$line = sprintf('/usr/bin/rsync %s %s/ %s 2>&1 | tee %s',
 			mergeArgs($rsync_opt),escapeshellarg($s),escapeshellarg($d),$tmp);
