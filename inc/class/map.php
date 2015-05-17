@@ -1,14 +1,6 @@
 <?php
 
 class map{
-//	to be sure a messed up conf won't spoil anything on the target host if
-//	somehow it was run under root let all destinations must have some safe
-//	to use word in the path.
-//	the approach is pretty weak (for example ".." might direct the final path
-//	anywhere no matter which safe word do we use) but it still does its work
-//	in countering *unintentional* errors in conf
-	const SAFETY_WORD = 'backup';
-
 	private static $data;
 	public static $error;
 
@@ -76,10 +68,6 @@ class map{
 			}
 
 			if ($dBase && $d == $dBase) return "destination for '{$s}' is the same as destination_base";
-
-//			weak safety check
-			if (strpos($d,self::SAFETY_WORD) === false)
-					return "safety alert on '{$d}'. all destinations must have '".self::SAFETY_WORD."' word in the path";
 
 //			this pair has passed all the tests
 			$map2[$s] = $d;

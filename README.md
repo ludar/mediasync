@@ -130,4 +130,3 @@ if u want to see what will it do without actual changes on disk add **"--dry-run
 for the sake of "let it not spoil something" ive added such checks:
 - it doesnt allow to run itself under root
 - it doesnt allow "root" user in conf for the remote host
-- it requires each expanded destination to contain some hardcoded word (atm the word is "backup")
