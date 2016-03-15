@@ -30,10 +30,13 @@ if (isset($args['strict'])) {
 
 //which mode is this: mirror or restore
 $restore = 0;
-if (array_key_exists('restore', $args)) {
-	$restore = (int) $args['restore'];
-	if ((string) $restore !== $args['restore'] || $restore < 0) {
-		bye('--restore value must be a number >= 0');
+if (isset($args['restore'])) {
+//	only check the val if it is set. 0 is used otherwise
+	if ($args['restore']) {
+		$restore = (int) $args['restore'];
+		if ((string) $restore !== $args['restore'] || $restore < 0) {
+			bye('--restore value must be a number >= 0');
+		}
 	}
 	$restore++;
 }

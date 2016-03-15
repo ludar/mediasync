@@ -80,7 +80,7 @@ function mergeArgs($o) {
 
 function usage() {
 	return vsprintf(
-			'usage: php %s options
+			'===== Usage: php %s options
 options:
     %-16s    %s
     %-16s    %s
@@ -97,8 +97,8 @@ options:
 		'force strict sync. THIS WAY EXTRA FILES FOUND ON DESTINATION WILL BE WIPED OUT!!',
 		'--bwlimit=X',
 		'limit bandwith in mbps. 0 = no limit (default)',
-		'--restore=N',
-		'reverse the sync process restoring sources from backup version N (0 is the most recent one)',
+		'--restore[=N]',
+		'reverse the sync process restoring sources from backup version N (0 is the most recent one and default)',
 		'--dry-run',
 		'this passes the --dry-run option to rsync',
 		'--mail',
