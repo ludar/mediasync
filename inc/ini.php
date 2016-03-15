@@ -40,15 +40,6 @@ $rsync_opt = array(
 //	copy symlinks as symlinks
 	'--links' => null,
 //
-//	delete extraneous files from dest dirs.
-//	it ensures our backup doesnt have junk inside.
-//	NEVER USE THIS OPTION ON RESTORING FROM BACKUP!!
-	'--delete' => null,
-//
-//	replace destination dirs with source files if they share the same path
-//	NEVER USE THIS OPTION ON RESTORING FROM BACKUP!!
-	'--force' => null,
-//
 //	 update destination files in-place
 	'--inplace' => null,
 //

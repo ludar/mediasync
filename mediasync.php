@@ -23,6 +23,11 @@ if (!isset($args['allow-root-src'])) {
 	}
 }
 
+if (isset($args['strict'])) {
+	$rsync_opt['--delete'] = null;
+	$rsync_opt['--force'] = null;
+}
+
 //which mode is this: mirror or restore
 $restore = 0;
 if (array_key_exists('restore', $args)) {
@@ -31,10 +36,6 @@ if (array_key_exists('restore', $args)) {
 		bye('--restore value must be a number >= 0');
 	}
 	$restore++;
-
-//	unset dangerous rsync options so nothing is gonna be spoiled on sync
-	unset($rsync_opt['--delete']);
-	unset($rsync_opt['--force']);
 }
 
 define('DRY_RUN', array_key_exists('dry-run', $args));

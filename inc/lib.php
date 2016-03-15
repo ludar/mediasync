@@ -88,10 +88,13 @@ options:
     %-16s    %s
     %-16s    %s
     %-16s    %s
+    %-16s    %s
     %-16s    %s', array(
 		__WATASHI__,
 		'--conf=json-file',
 		'task config',
+		'--strict',
+		'force strict sync. THIS WAY EXTRA FILES FOUND ON DESTINATION WILL BE WIPED OUT!!',
 		'--bwlimit=X',
 		'limit bandwith in mbps. 0 = no limit (default)',
 		'--restore=N',
