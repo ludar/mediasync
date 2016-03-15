@@ -17,25 +17,30 @@ if (!($conf = arEl($args, 'conf'))) {
 	bye(usage(), 0);
 }
 
-if (!isset($args['allow-root-src'])) {
+if (!array_key_exists('allow-root-src', $args)) {
 	if (!posix_getuid()) {
 		bye('use --allow-root-src option to run under root user');
 	}
 }
 
-if (isset($args['strict'])) {
+if (array_key_exists('strict', $args)) {
 	$rsync_opt['--delete'] = null;
 	$rsync_opt['--force'] = null;
 }
 
+define('VERSIONS', array_key_exists('versions', $args));
+
 //which mode is this: mirror or restore
 $restore = 0;
-if (isset($args['restore'])) {
-//	only check the val if it is set. 0 is used otherwise
-	if ($args['restore']) {
-		$restore = (int) $args['restore'];
-		if ((string) $restore !== $args['restore'] || $restore < 0) {
-			bye('--restore value must be a number >= 0');
+if (array_key_exists('restore', $args)) {
+//	only check the val if versions are enabled
+	if (VERSIONS) {
+//		only check the val if it is set to something. 0 is used otherwise
+		if ($args['restore']) {
+			$restore = (int) $args['restore'];
+			if ((string) $restore !== $args['restore'] || $restore < 0) {
+				bye('--restore value must be a number >= 0');
+			}
 		}
 	}
 	$restore++;
@@ -94,7 +99,7 @@ if (!($user = arEl($setup, 'user'))) {
 	bye('"user" is not set or empty');
 }
 
-if (!isset($args['allow-root-dst'])) {
+if (!array_key_exists('allow-root-dst', $args)) {
 	if ($user == 'root') {
 		bye('use --allow-root-dst option to run under remote root user');
 	}
@@ -137,8 +142,10 @@ foreach (map::get() as $s => $d) {
 		$s = $d;
 		$d = $t;
 
-//		selected versioned backup
-		$s .= '/' . ($restore - 1) . '/';
+		if (VERSIONS) {
+//			selected versioned backup
+			$s .= '/' . ($restore - 1) . '/';
+		}
 
 //		full source
 		$s = "{$host}:{$s}";
@@ -146,10 +153,11 @@ foreach (map::get() as $s => $d) {
 //		ensure the target directory exists as we gonna use a subdir
 		$init_line = 'mkdir -p ' . escapeshellarg($d);
 
-//		rotate backups on the host
-		if ($rotate && !DRY_RUN) {
-//			line break on the first line is required
-			$init_line .= <<<EOL
+		if (VERSIONS) {
+//			rotate backups on the host
+			if ($rotate && !DRY_RUN) {
+//				line break on the first line is required
+				$init_line .= <<<EOL
 
 && {
 	cd '{$d}' && {
@@ -160,6 +168,7 @@ foreach (map::get() as $s => $d) {
 	}
 }
 EOL;
+			}
 		}
 
 //		here path to rsync is a remote one
@@ -171,15 +180,16 @@ EOL;
 
 		$rsync_opt['--rsync-path'] = $init_line;
 
-//		"0" is the most recent backup
-		$d .= '/0';
+		if (VERSIONS) {
+//			"0" is the most recent backup
+			$d .= '/0';
 
-//		the most recent backup gonna be an incremental one based on "1".
-//		relative pathes are based on the destination
-		if ($rotate && !DRY_RUN) {
-			$rsync_opt['--link-dest'] = "../1";
+//			the most recent backup gonna be an incremental one based on "1".
+//			relative pathes are based on the destination
+			if ($rotate && !DRY_RUN) {
+				$rsync_opt['--link-dest'] = "../1";
+			}
 		}
-
 //		full destination
 		$d = "{$host}:{$d}";
 	}

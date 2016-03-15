@@ -89,10 +89,13 @@ options:
     %-16s    %s
     %-16s    %s
     %-16s    %s
+    %-16s    %s
     %-16s    %s', array(
 		__WATASHI__,
 		'--conf=json-file',
 		'task config',
+		'--versions',
+		'enable versioned backups',
 		'--strict',
 		'force strict sync. THIS WAY EXTRA FILES FOUND ON DESTINATION WILL BE WIPED OUT!!',
 		'--bwlimit=X',
