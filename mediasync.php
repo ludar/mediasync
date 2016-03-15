@@ -1,6 +1,5 @@
 #!/usr/bin/php
 <?php
-
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //DONT RENAME THIS FILE UNDER ANY CIRCUMSTANCES!!
 //the file's name is used as a process filter
@@ -12,14 +11,16 @@ chdir(dirname(__FILE__));
 require('inc/lib.php');
 require('inc/ini.php');
 
-if (!posix_getuid()) {
-	bye('this script is not supposed to be run under root privileges');
-}
-
 //parse cli args
 $args = cmdArgs(array_slice($argv, 1));
 if (!($conf = arEl($args, 'conf'))) {
 	bye(usage(), 0);
+}
+
+if (!isset($args['allow-root-src'])) {
+	if (!posix_getuid()) {
+		bye('use --allow-root-src option to run under root user');
+	}
 }
 
 //which mode is this: mirror or restore
@@ -89,8 +90,10 @@ if (!($user = arEl($setup, 'user'))) {
 	bye('"user" is not set or empty');
 }
 
-if ($user == 'root') {
-	bye('this script is not supposed to be run under root privileges on remote host');
+if (!isset($args['allow-root-dst'])) {
+	if ($user == 'root') {
+		bye('use --allow-root-dst option to run under remote root user');
+	}
 }
 
 if (($sshkey = arEl($setup, 'sshkey')) && (!is_file($sshkey) || !is_readable($sshkey))) {

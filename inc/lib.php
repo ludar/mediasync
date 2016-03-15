@@ -79,14 +79,32 @@ function mergeArgs($o) {
 }
 
 function usage() {
-	return sprintf(
+	return vsprintf(
 			'usage: php %s options
 options:
     %-16s    %s
     %-16s    %s
     %-16s    %s
     %-16s    %s
-    %-16s    %s', __WATASHI__, '--conf=json-file', 'task config', '--mail', 'report errors to the mail provided in the config', '--restore=N', 'reverse the sync process restoring sources from backup version N (0 is the most recent one)', '--dry-run', 'this passes the --dry-run option to rsync', '--bwlimit=X', 'limit bandwith in mbps. 0 = no limit (default)'
+    %-16s    %s
+    %-16s    %s
+    %-16s    %s', array(
+		__WATASHI__,
+		'--conf=json-file',
+		'task config',
+		'--bwlimit=X',
+		'limit bandwith in mbps. 0 = no limit (default)',
+		'--restore=N',
+		'reverse the sync process restoring sources from backup version N (0 is the most recent one)',
+		'--dry-run',
+		'this passes the --dry-run option to rsync',
+		'--mail',
+		'report errors to the mail provided in the config',
+		'--allow-root-src',
+		'allow local root user',
+		'--allow-root-dst',
+		'allow remote root user',
+			)
 	);
 }
 
