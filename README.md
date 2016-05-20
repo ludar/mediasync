@@ -104,10 +104,10 @@ in restore mode (--restore[=N]) N means which backup version to restore from and
 
 why did i introduce versioned backups.
 
-imagine u have the tool running via cron
+imagine u have the tool running via cron in `--strict` mode
 - on monday it did mirroring
 - on tuesday something happened to the source and some files were lost
-- the same day there was another round of mirroring and the files missing on the source where removed from the backup (because mirroring makes an exact copy of source)
+- the same day there was another round of mirroring and the files missing on the source where removed from the backup (because of the `--strict` mode)
 - next day u look into the backup and see the files are gone
 
 in versioned backups scenario u can have as much older snapshots as u like so it gives u days or even weeks to discover problems on the source and restore lost files.
