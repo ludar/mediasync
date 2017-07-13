@@ -214,4 +214,6 @@ EOL;
 				"last " . RSYNC_ERROR_REPORT_LINES . " lines of output:\n\n" .
 				implode('', array_slice(file($tmp), -RSYNC_ERROR_REPORT_LINES)), 1, true);
 	}
+
+	unlink($tmp);
 }
