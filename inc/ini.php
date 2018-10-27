@@ -8,14 +8,8 @@ $ssh_opt = array(
 //	turn off pseudo-tty. we dont need it
 	'-T' => null,
 //
-//	set arcfour as the cipher we use for the connection. arcfour is the
-//	fastest one so it is the best for media (=big) files.
-//	for it to work the destination host must have arcfour enabled.
-//	if the script fails to connect check out /etc/ssh/ssh_config
-//	for "Ciphers" line. be sure the line is uncommented. add "arcfour" to
-//	the end of the line if it doesnt contain the cipher. restart sshd to
-//	apply the settings
-	'-c' => 'arcfour',
+//	arcfour cipher is no longer availible since ubuntu 18.04.
+	'-c' => 'aes128-ctr',
 //
 	'-o' => array(
 //		compressing media files is futile
