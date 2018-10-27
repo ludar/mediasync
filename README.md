@@ -5,13 +5,7 @@
 
 prerequisites:
 - both sides must have rsync installed
-- remote host must have "arcfour" cipher in sshd enabled (it is the fastest one)
-
-if the tool fails because of ssh connection error (and the key is set right)
-- open /etc/ssh/ssh_config on the remote host
-- look for "Ciphers" line
-- uncomment it if it needs it and append "arcfour" to it if it doesnt include it already
-- restart sshd
+- remote host must have "aes128-ctr" cipher in ssh enabled (it is on by default)
 
 some tuning in inc/ini.php:
 - RSYNC_ERROR_REPORT_LINES how much last lines of rsync output are sent to email on error
